@@ -15,3 +15,6 @@ data/*.checkpoint.json
 data/sample*.json
 data/exact*.json
 data/liveness*.json
+
+.vercel
+.env*

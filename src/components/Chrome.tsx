@@ -57,7 +57,7 @@ type ButtonProps = {
   children: React.ReactNode;
   href: string;
   variant?: "primary" | "secondary" | "tertiary" | "on-accent";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "nav" | "md" | "lg";
   external?: boolean;
 };
 
@@ -70,9 +70,12 @@ type ButtonProps = {
  * not be read. Derivation and reasoning are in DEVIATIONS.md.
  */
 export function Button({ children, href, variant = "primary", size = "lg", external }: ButtonProps) {
+  // SPEC.md §6.2, measured: nav 36/24, inline 40/16, hero 48/24, and the
+  // small-viewport steps down to 40/16 and 32/12.
   const sizes = {
     sm: "h-8 px-3 text-[12px] leading-4",
-    md: "h-10 px-4 text-[14px] leading-5",
+    nav: "h-10 px-4 text-[12px] leading-6 md:h-9 md:px-6 md:text-[14px]",
+    md: "h-8 px-3 text-[12px] leading-4 md:h-10 md:px-4 md:text-[14px] md:leading-5",
     lg: "h-10 px-4 text-[12px] leading-6 md:h-12 md:px-6 md:text-[16px] md:leading-6",
   } as const;
   const variants = {
@@ -126,7 +129,7 @@ export function Header() {
           <span className="tnum hidden text-[12px] leading-4 uppercase tracking-[0.06em] text-ink-3 xl:inline">
             chain {CHAIN_ID}
           </span>
-          <Button href="/#waitlist" size="sm" variant="primary">
+          <Button href="/#waitlist" size="nav" variant="primary">
             Join the waitlist
           </Button>
         </div>

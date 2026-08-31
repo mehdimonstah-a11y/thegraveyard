@@ -188,7 +188,14 @@ export function swapExactIn({ positions, sqrtPriceX96, currentTick, feePips, amo
 
     let sqrtNew;
     let amountInStep;
-    if (remaining >= maxInWithFee && maxInWithFee > 0n) {
+    // Reaching the boundary. `maxInWithFee === 0` is the case that matters and
+    // is easy to get wrong: the price is already sitting ON a tick boundary, so
+    // this range has zero capacity. It has to be treated as a crossing that
+    // consumes nothing and pays nothing — falling through to the partial-fill
+    // branch instead would price the entire remaining input against liquidity
+    // the pool does not have below that boundary, and invent a payout out of
+    // a pool that holds none of the asset.
+    if (maxInWithFee === 0n || remaining >= maxInWithFee) {
       amountInStep = maxInWithFee;
       sqrtNew = sqrtTarget;
     } else {

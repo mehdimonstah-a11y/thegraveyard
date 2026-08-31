@@ -263,7 +263,7 @@ Default is 1:1. No section is reordered, merged, invented or dropped.
 
 | # | Reference section | Their content | Our content | Notes |
 |---|---|---|---|---|
-| 0 | Hero, 720px, badge + animating headline + sub + 2 CTAs | Partner badge; "one cloud for …" typing headline; one-sentence sub; primary + secondary CTA | `ROBINHOOD CHAIN · 4663` badge; headline whose tail types itself through the four things a grave holds; one-sentence sub; `JOIN THE WAITLIST` + `READ THE METHOD` | Same anatomy, same typing mechanic, our words |
+| 0 | Hero, 720px, badge + animating headline + sub + 2 CTAs | Partner badge; a headline whose tail types itself in; one-sentence sub; primary + secondary CTA | `ROBINHOOD CHAIN · 4663` badge; headline whose tail types itself through the four things a grave holds; one-sentence sub; `JOIN THE WAITLIST` + `READ THE METHOD` | Same anatomy, same typing mechanic, our words |
 | 1 | Full-bleed 80px marquee | Scrolling strip of customer logos | Scrolling strip of the largest measured graves: address, what's left, days idle | We have no customers and will not imply any. Same component, real data |
 | 2 | Heading + sub + 4 bullet claims + CTA | Serverless product pitch | **Why the money is stuck** — locked LP, no withdrawal function, no holder with enough supply, dust returns dust. CTA to the method | 1:1 |
 | 3 | Alternate ground. Heading + 3 bullet columns + CTA, then a second heading + sub + CTA + 3-up price cards | Dedicated GPU pitch, then GPU pricing | **How an exhumation works** — three columns, then **The published minimums** — three cells carrying the minimum reserve, the dust threshold and the window length | Their price table is our threshold table: same three-up, zero gap, figure + status label |

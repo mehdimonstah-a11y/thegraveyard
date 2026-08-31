@@ -1,0 +1,39 @@
+name: CI
+
+# Two gates and a build.
+#
+# The grep test is the one that matters most here: it fails the build if any
+# shipped surface carries a string that identifies the reference layout this
+# site was measured from, or any of the language this product refuses to use
+# about what it does. A note in a review would not survive a busy week.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Recovery maths
+        run: npm run test:math
+
+      - name: Banned strings
+        run: npm run test:grep
+
+      - name: Types
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build

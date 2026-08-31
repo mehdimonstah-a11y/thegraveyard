@@ -89,7 +89,19 @@ for (const [i, r] of todo.entries()) {
           feePips, amountIn: tokenRaw * 1_000_000n, zeroForOne: !r.quoteIsToken0,
         });
         ceilingUsd = (Number(sim.amountOut) / 10 ** dec) * usd;
-      } catch { /* reported as zero, never guessed */ }
+        // A swap cannot pay out more of an asset than the pool holds. If this
+        // ever trips, the maths is wrong and the figures must not be published
+        // — so it stops the run rather than clamping quietly. It caught a real
+        // bug once; see the regression in v4math.test.mjs.
+        if (sim.amountOut > quoteRaw) {
+          throw new Error(
+            `INVARIANT: pool ${r.id} would pay out ${sim.amountOut} from a reserve of ${quoteRaw}`,
+          );
+        }
+      } catch (e) {
+        if (String(e).includes("INVARIANT")) throw e;
+        /* anything else is reported as zero, never guessed */
+      }
     }
 
     done.push({

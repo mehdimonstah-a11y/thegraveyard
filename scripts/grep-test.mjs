@@ -16,13 +16,24 @@ const ROOT = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "
 
 const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "data", "out", ".vercel"]);
 /**
- * Three files are exempt, and only three: this one, which names every banned
- * string in order to ban it, and the two teardown documents, whose entire job
- * is to record what the reference looks like so that nothing else has to. Every
- * other file in the repository — source, styles, copy, DECISIONS, DESIGN_PLAN,
- * the twitter kit — is subject to every ban below.
+ * The analysis documents are exempt, and nothing else is.
+ *
+ * Four files exist to record what the reference is — its measurements, its
+ * palette, its type, and every place we departed from it — so that no shipped
+ * surface has to carry any of it. Plus this file, which names every banned
+ * string in order to ban it.
+ *
+ * Every other file in the repository is subject to every ban below: all of
+ * src/, all styles, the README, DECISIONS, DESIGN_PLAN, the twitter kit, the
+ * scan scripts and the published dataset.
  */
-const SKIP_FILES = new Set(["grep-test.mjs", "REFERENCE-TEARDOWN.md", "DIVERGENCE.md"]);
+const SKIP_FILES = new Set([
+  "grep-test.mjs",
+  "REFERENCE-TEARDOWN.md",
+  "DIVERGENCE.md",
+  "SPEC.md",
+  "DEVIATIONS.md",
+]);
 
 const BANS = [
   // ── reference palette ────────────────────────────────────────────────
