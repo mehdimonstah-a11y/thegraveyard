@@ -1,0 +1,17 @@
+node_modules
+.next
+out
+.vercel
+*.tsbuildinfo
+.env
+.env.local
+.DS_Store
+
+# The raw scan. 170MB+ of NDJSON and checkpoints; the compiled dataset the site
+# reads lives in src/data/scan.json and IS committed, so the published figures
+# are reproducible from the repo.
+data/pools.ndjson
+data/*.checkpoint.json
+data/sample*.json
+data/exact*.json
+data/liveness*.json

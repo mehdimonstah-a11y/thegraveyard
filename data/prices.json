@@ -1,0 +1,21 @@
+{
+ "readAtBlock": 51189470,
+ "feeds": {
+  "eth": {
+   "address": "0x6091e64eb7138eef066a80fd3a0d7427b91f2721",
+   "description": "ETH / USD",
+   "decimals": 8,
+   "updatedAt": 1788208439,
+   "updatedAtIso": "2026-08-31T20:33:59.000Z"
+  },
+  "usdg": {
+   "address": "0x8beee3503f6860d5dac4ce26b5eee92982951c2e",
+   "description": "USDG / USD",
+   "decimals": 8,
+   "updatedAt": 1788190145,
+   "updatedAtIso": "2026-08-31T15:29:05.000Z"
+  }
+ },
+ "eth": 2473.4352,
+ "usdg": 0.99983511
+}

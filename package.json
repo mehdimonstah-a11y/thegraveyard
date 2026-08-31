@@ -1,0 +1,37 @@
+{
+  "name": "thegraveyard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3360",
+    "build": "next build",
+    "start": "next start -p 3360",
+    "typecheck": "tsc --noEmit",
+    "scan:pools": "node scripts/scan-pools.mjs",
+    "scan:liquidity": "node scripts/scan-liquidity.mjs",
+    "scan:swaps": "node scripts/scan-swaps.mjs",
+    "prices": "node scripts/prices.mjs",
+    "sample": "node scripts/sample-state.mjs",
+    "exact": "node scripts/exact-sample.mjs",
+    "liveness": "node scripts/liveness-sample.mjs",
+    "publish:data": "node scripts/build-dataset.mjs",
+    "test:math": "node scripts/v4math.test.mjs",
+    "test:grep": "node scripts/grep-test.mjs",
+    "test": "node scripts/v4math.test.mjs && node scripts/grep-test.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "viem": "^2.37.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.7.2"
+  }
+}
