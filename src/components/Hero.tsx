@@ -17,7 +17,7 @@ import { CHAIN_ID, CHAIN_NAME } from "@/lib/chain";
  */
 
 const LEAD = "Every dead pool on this chain";
-const TAIL = "still has real money in it.";
+const TAIL = "still has something in it.";
 
 export function Hero({
   headBlock,
@@ -76,8 +76,8 @@ export function Hero({
 
         <p className="mt-7 max-w-[62ch] text-[16px] leading-6 text-ink-2 md:mt-9 md:text-[18px]">
           Launch liquidity here is locked forever, so when a token dies the ETH and USDG in its
-          pool are stranded. We measure how much, aggregate the supply nobody owns enough of
-          alone, sell it in one transaction, and split what comes out.
+          pool are stranded. We measured how much is actually there, and the honest answer is
+          that it is small — a few dollars a grave, and the largest one we found holds $242.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">

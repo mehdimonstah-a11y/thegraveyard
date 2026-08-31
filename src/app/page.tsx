@@ -129,7 +129,11 @@ export default function Home() {
             </h2>
             <p className="mt-5 max-w-[62ch] text-[16px] leading-6 text-ink-2 md:text-[18px]">
               A grave has to clear all three before it can be opened. They are published because a
-              threshold you cannot check is not a threshold.
+              threshold you cannot check is not a threshold —{" "}
+              <span className="text-accent">
+                and at the minimum reserve below, nothing on this chain currently clears them.
+              </span>{" "}
+              That is the measurement, not a placeholder.
             </p>
             <div className="mt-8">
               <Button href="/scan" variant="secondary" size="md">
@@ -284,7 +288,7 @@ export default function Home() {
           <p className="mt-6 max-w-[62ch] text-[16px] leading-6 text-ink-2 md:text-[18px]">
             Keyed by contract address, never by symbol — this chain carries counterfeit tickers and
             two graves can legitimately share one. The bar is the recovery: filled is what comes
-            out, hatched is what the maths keeps.
+            out, hatched is what the maths keeps. Read the amounts before you read anything else.
           </p>
           <div className="mt-8">
             <Button href="/scan" variant="primary" size="md">
@@ -330,12 +334,12 @@ export default function Home() {
                 ],
               },
               {
-                h: "The measured graves are small",
+                h: "And the graves are tiny",
                 bullets: [
-                  `${num(totals.measuredGraves)} graves measured, ${num(totals.measuredAboveFloor)} of them above ${usd(meta.floorUsd, { cents: false })}`,
-                  `The largest holds ${top ? usd(top.whatsLeftUsd) : "—"}`,
-                  `${num(tradeability.neverTraded)} of the pools we read had never traded at all`,
-                  "Most of this chain's graves are worth a few dollars each",
+                  `${num(totals.measuredGraves)} graves measured, holding ${usd(totals.measuredCeilingUsd)} between them`,
+                  `The largest one holds ${top ? usd(top.whatsLeftUsd) : "—"}. That is the largest`,
+                  `${num(totals.measuredAboveFloor)} of them clear the ${usd(meta.floorUsd, { cents: false })} floor`,
+                  "The pools with real money in them are the ones people still trade",
                 ],
               },
             ].map((c) => (
@@ -370,11 +374,11 @@ export default function Home() {
                   q: "How much will I actually get?",
                   a: (
                     <>
-                      Almost certainly single-digit dollars, and possibly cents. The scan measured{" "}
-                      {num(totals.measuredGraves)} graves and only {num(totals.measuredAboveFloor)}{" "}
-                      of them hold more than {usd(meta.floorUsd, { cents: false })} recoverable in
-                      total — before that total is split among everyone who deposits. The number
-                      you see before depositing is the number, and it goes down as others join.
+                      On today&rsquo;s numbers, cents. The scan measured {num(totals.measuredGraves)}{" "}
+                      graves holding {usd(totals.measuredCeilingUsd)} between them, none of which
+                      clears the {usd(meta.floorUsd, { cents: false })} floor — and that total is
+                      before it is split among everyone who deposits into it. We are publishing
+                      that rather than a projection, because the projection would be the lie.
                     </>
                   ),
                 },

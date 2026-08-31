@@ -168,18 +168,18 @@ collapsed. This is recorded because it was a change made *to* match, not away fr
 |---|---|---|---|---|---|
 | 0 | Hero | 720 | 720 | **0** | — |
 | 1 | Marquee | 80 | 80 | **0** | — |
-| 2 | Two-column argument | 906 | 998 | +92 | Our left column carries four ruled bullets against their four bullet claims, and the right column holds an interactive control rather than a static image |
-| 3 | Round + minimums | 1,395 | 1,347 | −48 | Their price cards carry a status row we express in fewer words |
-| 4 | Measured figures | 836 | 772 | −64 | Their footnote is two paragraphs; ours is one |
+| 2 | Two-column argument | 906 | 998 | +92 | Our left column carries four ruled bullets against their four bullet claims, and the right column holds an interactive control where theirs holds a static image |
+| 3 | Round + minimums | 1,395 | 1,395 | **0** | — |
+| 4 | Measured figures | 836 | 772 | −64 | Their footnote runs to two paragraphs; ours is one |
 | 5 | What we refuse | 944 | 817 | −127 | Three cards against three cards; theirs carry more copy per card |
-| 6 | The scan | 1,163 | 1,190 | +27 | Table preview trimmed to 10 rows to sit in their catalogue's height |
-| 7 | The ugly part | 710 | 814 | +104 | Their case studies are four short bullets; our maths blocks are four longer ones |
+| 6 | The scan | 1,163 | 1,222 | +59 | The table preview is trimmed to ten rows to sit in their catalogue's height |
+| 7 | The ugly part | 710 | 814 | +104 | Their case-study bullets are four short lines; our maths blocks are four longer ones |
 | 8 | FAQ | 725 | 845 | +120 | Six questions against their five. Dropping one would have meant dropping something a reader should be told |
 | 9 | Accent CTA | 676 | 684 | **+8** | — |
 
-**Result: 4 of 10 sections within ±8px; every structural value at 0.** The six that differ are
-copy-length differences on an identical grid, which is what §3 permits. Total document height
-9,347 (reference) against 9,026 (ours) — **3.4%**.
+**Result: 4 of 10 sections within ±8px, and every structural value at 0.** The six that differ
+are copy-length differences on an identical grid, which is what §3 permits. Total document height
+9,347 (reference) against 9,000 (ours) — **3.7%**.
 
 **Breakpoints, all four:**
 
@@ -244,7 +244,7 @@ Automated, per §5.6. Every element with a text node, against its resolved backg
 
 | Page | Pairs checked | Minimum ratio | Failures |
 |---|---|---|---|
-| `/` | 325 | **5.13:1** | **0** |
+| `/` | 324 | **5.13:1** | **0** |
 | `/scan` | 363 | **5.28:1** | **0** |
 | `/docs` | 116 | **5.28:1** | **0** |
 | `/exhumations` | 48 | **5.28:1** | **0** |

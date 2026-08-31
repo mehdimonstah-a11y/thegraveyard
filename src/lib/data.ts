@@ -28,6 +28,10 @@ export interface Grave {
   lastBlock: number | null;
   swaps: number;
   sells: number;
+  /** True when the counts come from a window rather than the pool's whole life,
+   *  because its full history overflows the node's log cap. The last-swap block
+   *  is exact either way, so liveness is unaffected — the counts are not. */
+  historyPartial?: boolean;
   fullRange: boolean;
   fee: number;
   hooks: string;

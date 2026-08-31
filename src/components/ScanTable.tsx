@@ -168,7 +168,17 @@ export function ScanTable({ graves, pageSize = 24 }: { graves: Grave[]; pageSize
                   {Math.round(g.daysIdle)}d
                 </td>
                 <td className="tnum px-4 py-3.5 text-right text-[14px] leading-5 text-ink-2">
-                  {g.sells > 0 ? num(g.sells) : <span className="text-ink-3">none</span>}
+                  {g.historyPartial ? (
+                    // Its full history overflows the node's log cap, so the count
+                    // would be a window's count wearing a lifetime's label.
+                    <span className="text-ink-3" title="Full history exceeds the node's log cap; not counted">
+                      —
+                    </span>
+                  ) : g.sells > 0 ? (
+                    num(g.sells)
+                  ) : (
+                    <span className="text-ink-3">none</span>
+                  )}
                 </td>
               </tr>
             ))}

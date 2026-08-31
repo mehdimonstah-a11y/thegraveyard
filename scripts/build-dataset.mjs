@@ -123,6 +123,9 @@ const out = {
     lastBlock: g.lastBlock,
     swaps: g.swaps,
     sells: g.sells,
+    /** True when the swap counts come from a window rather than the pool's
+     *  whole life. The last-swap block is exact regardless. */
+    historyPartial: Boolean(g.historyPartial),
     fullRange: Boolean(g.fullRange),
     fee: g.fee,
     hooks: g.hooks,
