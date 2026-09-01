@@ -10,28 +10,65 @@ last week is not a figure; it is a claim.
 
 **Handle:** `@thegraveyardxyz`
 **Display name:** The Graveyard
-**Location:** Robinhood Chain · 4663
 **Link:** thegraveyard.xyz
+**Location:** leave empty. The chain is named in the thesis and in the dataset, where it is
+load-bearing; in a profile field it is decoration.
 
-**Bio:**
+**Bio** (the one to use):
 
-> Every dead token on this chain still has real money in its pool. We measure how much, get it
-> out, and split it. Nothing deployed yet.
+> Nobody kept the key. There was never a key.
+>
+> The salvage yard for dead liquidity pools. We measure what's left, get it out, split it.
 
-Alternate, if a shorter one is wanted:
+138 characters. The first line is the thing people will quote; the second says what it is.
 
-> The salvage yard for dead launches. Robinhood Chain.
+Alternates, if a different register is wanted:
 
-**Avatar.** The mark from the site, at 400×400: a hairline rectangle, filled from the left in
-`#F2833F` to about 62% of its width, with a 2px `#EBECEC` vertical stop near the right edge that
-the fill does not reach. Ground `#0B0D10`. It is the shortfall at avatar scale, and it is the
-only mark this project has. No image file is used to make it — it is the same SVG as
-`GraveMark` in `src/components/Chrome.tsx`, exported at size.
+> Every dead pool still holds something.
+> The first salvage protocol for stranded liquidity. We measure it, sell it once, and split it.
 
-**Header.** 1500×500, ground `#0B0D10`. Twelve horizontal rules stacked at even intervals, each
-one a grave: filled in `#F2833F` to a different proportion, all of them stopping short of the
-same vertical line at 88% width. Beneath, in IBM Plex Mono 400 at small size,
-`{poolsInitialised} POOLS · {measuredGraves} GRAVES · $0.00 RECOVERED`. The zero is the point.
+> 542,707 pools read. Most of them are dead. All of them still hold something.
+> Salvage for stranded liquidity.
+
+**Launch tweet**, to go with the announcement film:
+
+> every token that died on this chain left money in its pool.
+>
+> nobody can get it out alone — the LP is locked forever and no single holder owns enough supply
+> to make the sale worth making.
+>
+> so we read all 542,707 pools and built the thing that does.
+>
+> waitlist is open: https://thegraveyard.xyz
+
+**The reply, posted immediately underneath it.** This is the whole positioning and it should not
+be in the main tweet, where it reads as false modesty. Underneath, it reads as receipts:
+
+> before anyone asks how much is down there: not much.
+>
+> 108 graves measured, $996 between them, largest one holds $241.
+>
+> the pools with real money in them turned out to be the ones people still trade. we published
+> that instead of the number that would have looked better.
+
+**Avatar.** `public/brand/avatar-400.png`, and the same mark at 1024 / 512 / 200 / 96 / 48.
+Three bars and a wall on the page ground — each bar a grave filled to what comes out of it, the
+wall the reserve, and the gap widening down the stack because every extra unit of supply recovers
+less than the last. The ink sits inside the circular crop at every size. Regenerate with
+`npm run brand`.
+
+**Header.** `public/brand/twitter-banner-1500x500.png` (and `@2x`). The lockup on the left, and
+on the right twenty-two graves each filled to a different depth, every one stopping short of the
+same wall — the longest by twelve pixels. The left column stops well above the bottom edge
+because Twitter overlays the profile picture there, and nothing that has to be read sits in the
+outer 96px, because it crops the sides on narrow screens.
+
+**Announcement film.** `trailer/out/thegraveyard-waitlist-*.mp4`, 10 s, three crops, each
+re-laid rather than letterboxed. A field of graves fills in, a wall lands, every bar is revealed
+to stop short of it, the field collapses into the mark — and the last beat is the top bar
+reaching for the wall on out(u) = u/(1+u) and not arriving. The taps in the score stretch on the
+same curve. Poster is frame 230, deliberately before the reach begins, so the thumbnail carries
+the mark at its canonical proportions.
 
 ---
 

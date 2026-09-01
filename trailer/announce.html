@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Graveyard — waitlist announcement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ==========================================================
+     THE GRAVEYARD — 10s waitlist announcement. 300 frames, 30 fps.
+
+     The film is the mark, animated once.
+
+     A field of graves fills in, each one stopping at a different
+     depth. A wall lands. Every bar is revealed to stop short of
+     it. The field then collapses into three bars and that same
+     wall — the mark — and the last thing that happens is the top
+     bar reaching for the wall on an asymptotic curve and not
+     arriving. That is the product: out(D) approaches the reserve
+     and never reaches it.
+
+     render(f) draws exactly the state of frame f. No clock, no
+     rAF, no timeline easing applied from outside. Re-running the
+     render produces identical output, which is what makes the
+     beat grid a guarantee rather than a hope.
+
+     Flat by design. Four colours, no gradient, shadow, glow or
+     blur. Only geometry and type move.
+     ========================================================== */
+  :root {
+    --bg: #0b0d10;
+    --ink: rgba(255, 255, 255, 0.92);
+    --ink-2: rgba(255, 255, 255, 0.64);
+    --ink-3: rgba(255, 255, 255, 0.5);
+    --accent: #f2833f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0; }
+  html, body { overflow: hidden; background: #000; }
+  #stage { position: relative; overflow: hidden; background: var(--bg); }
+  .abs { position: absolute; }
+  .name {
+    font-family: Archivo, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--ink);
+    font-kerning: normal;
+    font-feature-settings: "kern" 1;
+  }
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .sub {
+    font-family: Archivo, system-ui, sans-serif;
+    font-weight: 400;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div id="stage"><div id="layers"></div></div>
+<script>
+/* ── formats ───────────────────────────────────────────────────────
+   Named in words at the encode step, not in ratios: "16x9" and "9x16"
+   are the same four characters reordered, and posting the vertical cut
+   to a timeline that wanted the horizontal one is exactly the mistake
+   that naming invites.
+
+   Every value here is a position, never a ratio applied at render
+   time, so a crop is re-laid rather than letterboxed. */
+const FORMATS = {
+  "16x9": {
+    W: 1920, H: 1080,
+    field: { left: 200, wallX: 1500, rows: 18, rowH: 14, gap: 13, wallW: 9, wallPad: 40, top: 264 },
+    line: { size: 26, track: 0.14, y: 872 },
+    markH: 300, markCX: 960, markCY: 400,
+    logo: 104, logoY: 648, sub: 30, subY: 800, url: 24, urlY: 862,
+  },
+  "1x1": {
+    W: 1080, H: 1080,
+    field: { left: 120, wallX: 900, rows: 16, rowH: 13, gap: 12, wallW: 8, wallPad: 34, top: 262 },
+    line: { size: 20, track: 0.14, y: 856 },
+    markH: 232, markCX: 540, markCY: 396,
+    logo: 78, logoY: 592, sub: 24, subY: 700, url: 19, urlY: 756,
+  },
+  "9x16": {
+    W: 1080, H: 1920,
+    field: { left: 120, wallX: 900, rows: 20, rowH: 15, gap: 15, wallW: 8, wallPad: 40, top: 430 },
+    line: { size: 20, track: 0.14, y: 1120 },
+    markH: 250, markCX: 540, markCY: 760,
+    logo: 84, logoY: 980, sub: 25, subY: 1090, url: 20, urlY: 1150,
+  },
+};
+const FMT = FORMATS[window.FORMAT || "16x9"];
+const { W, H } = FMT;
+
+const BG = "#0b0d10", INK = "rgba(255,255,255,0.92)", ACCENT = "#f2833f";
+const TOTAL = 300;   // 10.00 s
+
+/* ── the beat grid ─────────────────────────────────────────────────
+   Every cut in the delivered file lands on one of these, because the
+   picture is a function of the frame number and nothing is trimmed by
+   hand afterwards. */
+const B = {
+  fieldIn: 10,     // graves begin filling
+  fieldDone: 86,   // last grave lands
+  lineIn: 34,      // the sentence under the field
+  wallIn: 88,      // the wall arrives, hard
+  lineOut: 100,
+  collapse: 112,   // field -> mark
+  collapseEnd: 152,
+  logoIn: 156,
+  subIn: 190,
+  urlIn: 216,
+  reachIn: 244,    // the asymptote
+  reachEnd: 286,
+  black: 296,
+};
+
+const stage = document.getElementById("stage");
+stage.style.width = W + "px";
+stage.style.height = H + "px";
+document.body.style.width = W + "px";
+document.body.style.height = H + "px";
+let L = document.getElementById("layers");
+
+/* ── helpers ──────────────────────────────────────────────────────── */
+const clamp01 = (v) => Math.max(0, Math.min(1, v));
+const prog = (f, start, len) => clamp01((f - start) / len);
+const lerp = (a, b, k) => a + (b - a) * k;
+/* Standard ease-out cubic. One curve for everything that arrives, so
+   nothing in the film moves on a rhythm of its own. */
+const OUT = (k) => 1 - Math.pow(1 - k, 3);
+/* Symmetric, for the one move that is a transformation rather than an
+   arrival. */
+const INOUT = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+
+function rect(x, y, w, h, colour, extra) {
+  const d = document.createElement("div");
+  d.className = "abs";
+  d.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${colour};${extra || ""}`;
+  L.appendChild(d);
+  return d;
+}
+function text(cls, css, content) {
+  const d = document.createElement("div");
+  d.className = "abs " + cls;
+  d.style.cssText = css;
+  d.textContent = content;
+  L.appendChild(d);
+  return d;
+}
+
+/* ── the field ─────────────────────────────────────────────────────
+   Eighteen graves, each filled to a fixed fraction of the run to the
+   wall. The sequence is hand-picked rather than random so the render
+   is byte-identical every time and the film does not quietly change
+   the next time it is built.
+
+   The longest reaches 96% of the run and stops. Nothing here ever
+   touches the wall, at any frame, in any format. */
+const DEPTHS = [
+  0.96, 0.38, 0.71, 0.19, 0.84, 0.29, 0.62, 0.14, 0.77, 0.44,
+  0.55, 0.23, 0.88, 0.33, 0.66, 0.17, 0.49, 0.26,
+];
+
+function fieldGeom() {
+  const g = FMT.field;
+  const stackH = g.rows * g.rowH + (g.rows - 1) * g.gap;
+  const run = g.wallX - g.left;
+  return { g, top: g.top, run, stackH };
+}
+
+/* Where each grave sits, and how far it has grown at frame f. */
+function graves(f) {
+  const { g, top, run } = fieldGeom();
+  const out = [];
+  for (let i = 0; i < g.rows; i++) {
+    // 3-frame stagger: the field fills top to bottom rather than at once.
+    const start = B.fieldIn + i * 3;
+    const k = OUT(prog(f, start, 22));
+    const depth = DEPTHS[i % DEPTHS.length];
+    out.push({
+      x: g.left,
+      y: top + i * (g.rowH + g.gap),
+      w: run * depth * k,
+      h: g.rowH,
+      full: run * depth,
+    });
+  }
+  return out;
+}
+
+/* ── the mark ──────────────────────────────────────────────────────
+   The same three bars and the same wall as src/components/Mark.tsx,
+   in the same 64-unit viewBox, scaled into frame coordinates. The
+   geometry is not redrawn here; it is transcribed, and the numbers
+   have to match that file. */
+const MARK = {
+  bars: [
+    { x: 7, y: 11, w: 39, h: 10 },
+    { x: 7, y: 27, w: 28, h: 10 },
+    { x: 7, y: 43, w: 17, h: 10 },
+  ],
+  wall: { x: 49.5, y: 5, w: 3.5, h: 54 },
+};
+
+function markGeom() {
+  const s = FMT.markH / 64;
+  // Content spans x = 7 to 53 in viewBox units; centre the ink, not the box.
+  const left = FMT.markCX - ((7 + 53) / 2) * s;
+  const topY = FMT.markCY - 32 * s;
+  const at = (r) => ({ x: left + r.x * s, y: topY + r.y * s, w: r.w * s, h: r.h * s });
+  return { s, bars: MARK.bars.map(at), wall: at(MARK.wall) };
+}
+
+/* The three graves that survive the collapse. Picked so the survivors
+   already descend in length — the field resolves into the mark rather
+   than rearranging into it. */
+const SURVIVORS = [0, 4, 8];
+
+/* ── the wall ──────────────────────────────────────────────────────
+   It arrives once, hard, on B.wallIn, and after that it is only ever
+   moved by the collapse. Nothing else in the film touches it. */
+function wallAt(f) {
+  const { g, top, stackH } = fieldGeom();
+  const field = {
+    x: g.wallX, y: top - g.wallPad,
+    w: g.wallW, h: stackH + g.wallPad * 2,
+  };
+  const mark = markGeom().wall;
+  if (f < B.collapse) return field;
+  const k = INOUT(prog(f, B.collapse, B.collapseEnd - B.collapse));
+  return {
+    x: lerp(field.x, mark.x, k), y: lerp(field.y, mark.y, k),
+    w: lerp(field.w, mark.w, k), h: lerp(field.h, mark.h, k),
+  };
+}
+
+/* ── the reach ─────────────────────────────────────────────────────
+   The last beat, and the whole thesis in one gesture: the top bar
+   grows toward the wall on out(u) = u / (1 + u), which approaches its
+   limit and never arrives.
+
+   RESERVE is the gap that survives no matter how long the film runs.
+   The curve is asymptotic to (gap - RESERVE), so at f286 the bar has
+   travelled ~90% of what it could and there is still daylight. It
+   would still be short if the film ran for an hour, which is the only
+   reason this shot exists. */
+const RESERVE = 5;
+function reachExtra(f, gapPx) {
+  if (f < B.reachIn) return 0;
+  const travel = Math.max(0, gapPx - RESERVE);
+  const k = prog(f, B.reachIn, B.reachEnd - B.reachIn);
+  const u = k * 9;                 // supply brought in, as a multiple
+  return travel * (u / (1 + u));   // never reaches `travel`
+}
+
+function render(f) {
+  L = document.getElementById("layers");
+  L.innerHTML = "";
+
+  if (f >= B.black) { stage.style.background = "#000000"; return; }
+  stage.style.background = BG;
+  if (f < B.fieldIn) return;
+
+  const collapsing = f >= B.collapse;
+  const ck = collapsing ? INOUT(prog(f, B.collapse, B.collapseEnd - B.collapse)) : 0;
+  const mg = markGeom();
+  const gs = graves(f);
+
+  /* The graves. Before the collapse they are the field; through it the
+     three survivors become the mark and the rest fall away. */
+  gs.forEach((b, i) => {
+    const si = SURVIVORS.indexOf(i);
+    if (si === -1) {
+      // Not a survivor: retracts to nothing on the same curve.
+      const w = collapsing ? b.w * (1 - ck) : b.w;
+      if (w > 0.5) rect(b.x, b.y, w, b.h, ACCENT);
+      return;
+    }
+    const m = mg.bars[si];
+    let x = b.x, y = b.y, w = b.w, h = b.h;
+    if (collapsing) {
+      x = lerp(b.x, m.x, ck); y = lerp(b.y, m.y, ck);
+      w = lerp(b.w, m.w, ck); h = lerp(b.h, m.h, ck);
+    }
+    // The top bar is the one that reaches, and only after it has settled.
+    if (si === 0 && f >= B.reachIn) {
+      const wall = wallAt(f);
+      w += reachExtra(f, wall.x - (x + w));
+    }
+    rect(x, y, w, h, ACCENT);
+  });
+
+  /* The wall. */
+  if (f >= B.wallIn) {
+    const wl = wallAt(f);
+    // Arrives by growing from its own centre, in six frames. Hard curve,
+    // because it is a boundary rather than an animation.
+    const k = OUT(prog(f, B.wallIn, 6));
+    const h = wl.h * k;
+    rect(wl.x, wl.y + (wl.h - h) / 2, wl.w, h, INK);
+  }
+
+  /* The sentence under the field. It exists only while the field does. */
+  if (f >= B.lineIn && f < B.lineOut + 10) {
+    const kin = OUT(prog(f, B.lineIn, 14));
+    const kout = f >= B.lineOut ? 1 - OUT(prog(f, B.lineOut, 10)) : 1;
+    text("mono", `left:${FMT.field.left}px;top:${FMT.line.y}px;font-size:${FMT.line.size}px;` +
+      `letter-spacing:${FMT.line.track}em;text-transform:uppercase;color:var(--ink-3);` +
+      `opacity:${(kin * kout).toFixed(3)};`,
+      "every dead pool still holds something");
+  }
+
+  /* The wordmark, beneath the mark. */
+  if (f >= B.logoIn) {
+    const k = OUT(prog(f, B.logoIn, 16));
+    text("name", `left:0px;top:${FMT.logoY}px;width:${W}px;text-align:center;` +
+      `font-size:${FMT.logo}px;opacity:${k.toFixed(3)};` +
+      `transform:translateY(${((1 - k) * 14).toFixed(2)}px);`,
+      "The Graveyard");
+  }
+
+  if (f >= B.subIn) {
+    const k = OUT(prog(f, B.subIn, 14));
+    text("sub", `left:0px;top:${FMT.subY}px;width:${W}px;text-align:center;` +
+      `font-size:${FMT.sub}px;opacity:${k.toFixed(3)};`,
+      "the waitlist is open");
+  }
+
+  if (f >= B.urlIn) {
+    const k = OUT(prog(f, B.urlIn, 14));
+    text("mono", `left:0px;top:${FMT.urlY}px;width:${W}px;text-align:center;` +
+      `font-size:${FMT.url}px;letter-spacing:0.1em;text-transform:uppercase;` +
+      `color:var(--accent);opacity:${k.toFixed(3)};`,
+      "thegraveyard.xyz");
+  }
+}
+
+window.render = render;
+window.TOTAL = TOTAL;
+window.FMT = FMT;
+window.BEATS = B;
+render(0);
+</script>
+</body>
+</html>
