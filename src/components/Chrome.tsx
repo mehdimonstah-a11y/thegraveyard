@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { HANDLE, JURISDICTION_SENTENCE, NOT_LOSSES_SENTENCE, PHASE_0_SENTENCE, POOL_MANAGER, addressUrl, blockUrl, CHAIN_ID } from "@/lib/chain";
+import { HANDLE, NOT_LOSSES_SENTENCE, PHASE_0_SENTENCE, POOL_MANAGER, addressUrl, blockUrl } from "@/lib/chain";
+import { Mark } from "./Mark";
 
 /**
  * The page frame: container, header, footer, and the two primitives every
@@ -113,8 +114,8 @@ export function Header() {
     <header className="sticky top-0 z-50 h-[68px] bg-bg">
       <Container className="flex h-full items-center justify-between gap-6">
         <Link href="/" className="t150 flex items-center gap-2.5 text-ink hover:text-accent">
-          <GraveMark />
-          <span className="text-[15px] font-semibold tracking-tight">The Graveyard</span>
+          <Mark size={22} />
+          <span className="text-[15px] font-semibold tracking-[-0.02em]">The Graveyard</span>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
@@ -126,30 +127,12 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <span className="tnum hidden text-[12px] leading-4 uppercase tracking-[0.06em] text-ink-3 xl:inline">
-            chain {CHAIN_ID}
-          </span>
           <Button href="/#waitlist" size="nav" variant="primary">
             Join the waitlist
           </Button>
         </div>
       </Container>
     </header>
-  );
-}
-
-/**
- * The mark: a plot outline with a filled portion and a gap that never closes.
- * It is the shortfall, at 20px. Drawn here, not imported — there is no image
- * file anywhere in this project.
- */
-export function GraveMark({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-      <rect x="0.5" y="4.5" width="19" height="11" fill="none" stroke="currentColor" strokeWidth="1" />
-      <rect x="0.5" y="4.5" width="12" height="11" fill="var(--color-accent)" />
-      <line x1="16.5" y1="2" x2="16.5" y2="18" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
   );
 }
 
@@ -238,7 +221,6 @@ export function Footer({ headBlock }: { headBlock: number }) {
             <div className="max-w-[68ch] space-y-3">
               <p className="text-[13px] leading-5 text-ink-2">{PHASE_0_SENTENCE}</p>
               <p className="text-[13px] leading-5 text-ink-2">{NOT_LOSSES_SENTENCE}</p>
-              <p className="text-[13px] leading-5 text-ink-2">{JURISDICTION_SENTENCE}</p>
             </div>
             <div className="flex flex-col items-start gap-3 lg:items-end">
               <a

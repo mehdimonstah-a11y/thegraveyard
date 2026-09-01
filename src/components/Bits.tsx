@@ -36,11 +36,11 @@ export function Accordion({ items }: { items: { q: string; a: React.ReactNode }[
 }
 
 /**
- * The waitlist. Two fields, because §10.4 of the build brief requires the
- * country question and there is no workaround for it.
+ * The waitlist. One field.
  *
  * Nothing is stored unless a sink is configured; when it is not, the API route
- * says so in its response and this form prints that rather than pretending.
+ * says so in its response and this form prints that rather than pretending it
+ * saved something it discarded.
  */
 export function WaitlistForm({ tone = "dark" }: { tone?: "dark" | "on-accent" }) {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -59,10 +59,7 @@ export function WaitlistForm({ tone = "dark" }: { tone?: "dark" | "on-accent" })
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          email: String(form.get("email") ?? ""),
-          country: String(form.get("country") ?? ""),
-        }),
+        body: JSON.stringify({ email: String(form.get("email") ?? "") }),
       });
       const json = (await res.json()) as { ok?: boolean; message?: string };
       setMessage(json.message ?? "");
@@ -99,17 +96,6 @@ export function WaitlistForm({ tone = "dark" }: { tone?: "dark" | "on-accent" })
             placeholder="you@example.com"
           />
         </label>
-        <label className="sm:w-[160px]">
-          <span className="sr-only">Country of residence</span>
-          <input
-            className={field}
-            type="text"
-            name="country"
-            required
-            autoComplete="country-name"
-            placeholder="Country"
-          />
-        </label>
         <button
           type="submit"
           disabled={state === "sending"}
@@ -125,8 +111,8 @@ export function WaitlistForm({ tone = "dark" }: { tone?: "dark" | "on-accent" })
       <p
         className={`mt-3 text-[13px] leading-5 ${onAccent ? "text-on-accent/80" : "text-ink-2"}`}
       >
-        We ask for a country because if a grave&rsquo;s token is a Robinhood Stock Token, the
-        United States, Canada and the United Kingdom are excluded. {state === "error" ? message : null}
+        One address, nothing else. No wallet connection, no signature, and nothing to approve.{" "}
+        {state === "error" ? message : null}
       </p>
     </form>
   );

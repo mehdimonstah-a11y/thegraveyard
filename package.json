@@ -15,6 +15,7 @@
     "exact": "node scripts/exact-sample.mjs",
     "liveness": "node scripts/liveness-sample.mjs",
     "publish:data": "node scripts/build-dataset.mjs",
+    "brand": "node scripts/brand.mjs",
     "test:math": "node scripts/v4math.test.mjs",
     "test:grep": "node scripts/grep-test.mjs",
     "test": "node scripts/v4math.test.mjs && node scripts/grep-test.mjs"

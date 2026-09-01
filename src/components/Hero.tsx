@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Container, GraveMark } from "./Chrome";
-import { CHAIN_ID, CHAIN_NAME } from "@/lib/chain";
+import { Button, Container } from "./Chrome";
+import { Mark } from "./Mark";
 
 /**
  * The hero, replicating SPEC.md §2 (720px, zero section padding) and §7's one
@@ -52,10 +52,7 @@ export function Hero({
             facts instead of a partnership, because we have none. */}
         <div className="inline-flex flex-wrap items-stretch border border-line">
           <span className="tnum flex items-center gap-2 px-4 py-2.5 text-[12px] leading-4 uppercase tracking-[0.06em] text-ink-2">
-            <GraveMark size={14} />
-            {CHAIN_NAME} · {CHAIN_ID}
-          </span>
-          <span className="tnum flex items-center border-l border-line px-4 py-2.5 text-[12px] leading-4 uppercase tracking-[0.06em] text-ink-3">
+            <Mark size={14} />
             block {headBlock.toLocaleString("en-US")}
           </span>
           <span className="tnum hidden items-center border-l border-line px-4 py-2.5 text-[12px] leading-4 uppercase tracking-[0.06em] text-ink-3 sm:flex">

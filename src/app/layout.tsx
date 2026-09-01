@@ -32,12 +32,12 @@ const plexMono = IBM_Plex_Mono({
 });
 
 const description =
-  "Every dead token on Robinhood Chain still has real money in its pool. The Graveyard measures how much, aggregates the supply nobody can use alone, sells it once and splits what comes out.";
+  "Dead pools still hold money. The Graveyard measures how much, aggregates the supply nobody can use alone, sells it once, and splits what comes out.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "The Graveyard — salvage for dead pools on Robinhood Chain",
+    default: "The Graveyard — salvage for dead pools",
     template: "%s — The Graveyard",
   },
   description,
@@ -50,6 +50,14 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", site: HANDLE, title: "The Graveyard", description },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/brand/avatar-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/brand/avatar-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/brand/mark.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/brand/avatar-200.png", sizes: "200x200", type: "image/png" }],
+  },
 };
 
 export const viewport: Viewport = {

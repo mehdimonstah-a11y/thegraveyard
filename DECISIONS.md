@@ -70,6 +70,8 @@ That last test is the reason there is no execution engine in this product. It is
 it is an assertion in the test suite.
 
 ### D5 — Native ETH and USDG are the quote assets; everything else is skipped
+**Superseded by the WETH correction — see `RECOVERY.md`, "Two corrections made during the scan".
+WETH (108,946 pools) and flETH (5,146) were added; the population went 391,411 → 505,055.**
 
 **Call:** a pool is only a candidate grave if exactly one side is native ETH or USDG.
 
@@ -118,6 +120,8 @@ and "the asymptote" is the mechanism rather than the thing. **Awaiting confirmat
 one constant and one CSS token if you want a different word.
 
 ### D9 — The palette risks the banned direction, and is locked colder because of it
+**Superseded by the structural-clone brief, which specifies a derived dark palette. The pale
+sheet below was never built; see `DEVIATIONS.md` A1 and A7 for what shipped.**
 
 **Call:** ground `#E3E4DF`, ink `#191A17`, one brass and one oxide accent.
 
@@ -153,3 +157,58 @@ depositors' tokens for the duration of a gather window constitutes custody in th
 we accept, and (b) whether taking a fee on the proceeds of trades executed on others' behalf is
 a regulated activity. Neither is answerable from inside this repository. Not started; blocking
 mainnet, not blocking the waitlist.
+
+### D12 — The site is closed, and closed means closed
+
+**Call:** the waitlist is the only public surface. `/scan`, `/docs`, `/exhumations` and
+`/g/[address]` all still exist and still build; `src/middleware.ts` 307s them to the front door
+until `PUBLIC_SITE_OPEN=1` is set.
+
+**Why middleware and not just removing the links:** a route with no link is still a route anyone
+can type. `/scan/data.json` mattered most — it is the whole dataset behind one guessable path,
+and hiding the button while leaving the endpoint answering would have made "closed" mean
+"closed-looking".
+
+`/api/waitlist` is deliberately not gated. Without it the one open page cannot accept anyone.
+
+**The redirect is a 307, not a 308.** This reopens at launch, and a permanent redirect would sit
+in browser caches long after the flag flips.
+
+### D13 — The jurisdiction notice came off, and the country field went with it
+
+**Call:** the Stock Token issuer and US/Canada/UK sentences are gone from every surface, and the
+waitlist collects an email address and nothing else.
+
+**Why the field went too:** the country question existed for exactly one reason — the Stock
+Token restriction — and it was labelled that way on screen. Keeping the field after removing its
+stated reason would mean collecting a piece of personal data with no purpose attached to it,
+which is worse than not collecting it. One field, one purpose.
+
+**What this is not:** a legal opinion. If a grave's token later turns out to be a restricted
+instrument, that question comes back before any deposit is ever accepted, and D11's counsel
+milestone is where it gets answered.
+
+### D14 — The chain is not named on the front door
+
+**Call:** the `chain 4663` chip in the header and the `Robinhood Chain · 4663` cell in the hero
+badge are both removed. The block number stays.
+
+**Why:** the chain id told a visitor nothing they could act on, and it made a closed door look
+like a dashboard. The block number is different — it is the timestamp on the figures beside it,
+and a number without a block is a claim. The chain is still named in `RECOVERY.md`, in the
+scan scripts, and on the gated pages, because that is where it is load-bearing.
+
+### D15 — The mark is three bars and a wall
+
+**Call:** the identity is a wedge of three accent bars that shorten downward, and one taller
+white rule none of them reaches.
+
+**Why this shape:** it is the maths, drawn. Each bar is a grave filled to what can actually be
+pulled out of it; the wall is the reserve; the gap widens with each bar because every additional
+unit of supply recovers less than the one before. The longest bar stops twelve pixels short at
+banner scale — near enough to read as "nearly", never zero.
+
+It is drawn in markup at every size it appears, from the 22px header lockup to the 1024px avatar
+and the 1500px banner, so the geometry cannot drift between them. `scripts/brand.mjs` renders the
+sheet in real Chrome — Archivo is a webfont and neither librsvg nor sharp will load one — and
+writes the PNGs and the standalone SVGs. There is still no image file anywhere in the app itself.

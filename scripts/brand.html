@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+       * The brand sheet.
+       *
+       * Rendered in real Chrome and screenshotted rather than rasterised from
+       * SVG, because the wordmark is set in Archivo and neither librsvg nor
+       * sharp will load a webfont. Chrome has it, so the exported PNG carries
+       * the same letterforms the site does.
+       *
+       * Every value here is a token from src/app/globals.css. If the site's
+       * palette moves, this moves with it — by hand, and that is the one place
+       * the brand can drift, so it is written down here.
+       */
+      :root {
+        --bg: #0b0d10;
+        --surface-1: #131619;
+        --line: #2a3036;
+        --ink: rgba(255, 255, 255, 0.92);
+        --ink-2: rgba(255, 255, 255, 0.64);
+        --ink-3: rgba(255, 255, 255, 0.5);
+        --accent: #f2833f;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+      }
+      body {
+        background: #202020;
+        font-family: Archivo, system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 40px;
+      }
+      .mono {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ── avatar ─────────────────────────────────────────────────────── */
+      #avatar {
+        width: 1024px;
+        height: 1024px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #avatar svg {
+        width: 660px;
+        height: 660px;
+      }
+
+      /* ── banner: 1500x500 ───────────────────────────────────────────────
+         Two fields, side by side, so nothing has to be masked. Left: the
+         lockup. Right: twenty-two graves, each filled to a different depth,
+         every one stopping short of the same wall.
+
+         Twitter overlays the profile picture on the bottom-left of this image
+         and crops the sides on narrow screens, so the left column stops well
+         above the bottom edge and nothing that must be read sits in the outer
+         96px. */
+      #banner {
+        width: 1500px;
+        height: 500px;
+        background: var(--bg);
+        position: relative;
+        overflow: hidden;
+      }
+      #banner .field {
+        position: absolute;
+        left: 660px;
+        right: 322px;
+        top: 52px;
+        bottom: 52px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      #banner .row {
+        height: 10px;
+        background: var(--accent);
+      }
+      #banner .wall {
+        position: absolute;
+        top: 34px;
+        bottom: 34px;
+        left: 1186px;
+        width: 7px;
+        background: var(--ink);
+      }
+      #banner .plate {
+        position: absolute;
+        left: 96px;
+        top: 128px;
+        width: 500px;
+      }
+      #banner .lockup {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      #banner .lockup svg {
+        width: 70px;
+        height: 70px;
+      }
+      #banner .name {
+        font-size: 58px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        line-height: 1;
+      }
+      #banner .sub {
+        margin-top: 22px;
+        font-size: 20px;
+        line-height: 1.4;
+        color: var(--ink-2);
+        max-width: 30ch;
+      }
+      #banner .meta {
+        position: absolute;
+        right: 46px;
+        bottom: 32px;
+        font-size: 15px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+
+      /* ── wordmark ───────────────────────────────────────────────────── */
+      .wordmark-sheet {
+        width: 1200px;
+        height: 360px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+      }
+      #wordmark {
+        background: transparent;
+      }
+      #wordmark-dark {
+        background: var(--bg);
+      }
+      .wordmark-sheet svg {
+        width: 112px;
+        height: 112px;
+      }
+      .wordmark-sheet .name {
+        font-size: 92px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      #wordmark .name {
+        color: #0b0d10;
+      }
+      #wordmark-dark .name {
+        color: var(--ink);
+      }
+      #wordmark .wall-fill {
+        fill: #0b0d10;
+      }
+      #wordmark-dark .wall-fill {
+        fill: rgba(255, 255, 255, 0.92);
+      }
+      #avatar .wall-fill,
+      #banner .wall-fill {
+        fill: rgba(255, 255, 255, 0.92);
+      }
+      .bar-fill {
+        fill: #f2833f;
+      }
+
+      /* ── favicon source ─────────────────────────────────────────────── */
+      #icon {
+        width: 512px;
+        height: 512px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #icon svg {
+        width: 400px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The mark, once, as a template every sheet clones. Three bars that
+         shorten downward and a wall none of them reaches. -->
+    <template id="mark">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect class="bar-fill" x="7" y="11" width="39" height="10" />
+        <rect class="bar-fill" x="7" y="27" width="28" height="10" />
+        <rect class="bar-fill" x="7" y="43" width="17" height="10" />
+        <rect class="wall-fill" x="49.5" y="5" width="3.5" height="54" />
+      </svg>
+    </template>
+
+    <div id="avatar"></div>
+
+    <div id="banner">
+      <div class="field" id="banner-stack"></div>
+      <div class="wall"></div>
+      <div class="plate">
+        <div class="lockup"><span class="mark-slot"></span><span class="name">The Graveyard</span></div>
+        <p class="sub">Dead pools still hold money. We measure how much, and it is never all of it.</p>
+      </div>
+      <p class="meta mono">thegraveyard.xyz</p>
+    </div>
+
+    <div class="wordmark-sheet" id="wordmark">
+      <span class="mark-slot"></span><span class="name">The Graveyard</span>
+    </div>
+    <div class="wordmark-sheet" id="wordmark-dark">
+      <span class="mark-slot"></span><span class="name">The Graveyard</span>
+    </div>
+
+    <div id="icon"></div>
+
+    <script>
+      const tpl = document.getElementById("mark");
+      const mark = () => tpl.content.cloneNode(true);
+
+      document.getElementById("avatar").appendChild(mark());
+      document.getElementById("icon").appendChild(mark());
+      for (const slot of document.querySelectorAll(".mark-slot")) slot.appendChild(mark());
+
+      /*
+       * The banner's twenty-two graves.
+       *
+       * Widths are a fixed, hand-picked sequence rather than random, so the
+       * exported file is byte-identical on every run and the banner does not
+       * quietly change the next time it is regenerated. The longest reaches
+       * within 14px of the wall and stops.
+       */
+      const WIDTHS = [
+        0.94, 0.41, 0.77, 0.22, 0.63, 0.15, 0.88, 0.34, 0.52, 0.19, 0.71,
+        0.27, 0.83, 0.12, 0.58, 0.45, 0.68, 0.17, 0.79, 0.31, 0.55, 0.24,
+      ];
+      const stack = document.getElementById("banner-stack");
+      // The longest grave stops 12px short of the wall. That gap is the point of
+      // the whole mark, so it is small enough to read as "nearly" and never zero.
+      const TRACK = 1186 - 660 - 12;
+      const MAX = Math.max(...WIDTHS);
+      for (const w of WIDTHS) {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.style.width = Math.round(TRACK * (w / MAX)) + "px";
+        stack.appendChild(row);
+      }
+    </script>
+  </body>
+</html>

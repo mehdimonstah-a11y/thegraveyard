@@ -11,6 +11,11 @@ transaction, and splits what comes out.
 **Nothing is deployed.** There is no contract, no `GRAVE` token and no exhumation. What exists
 is the scan, and the scan is real.
 
+**The site is closed.** The waitlist is the only public surface. The scan, the dataset, the docs
+and the archive all still build and are bounced to the front door by `src/middleware.ts` — a
+route with no link is still a route anyone can type. Set `PUBLIC_SITE_OPEN=1` to open it; no code
+change, no redeploy of anything but the variable.
+
 ---
 
 ## What is measured
@@ -66,7 +71,27 @@ npm test
 | `REFERENCE-TEARDOWN.md` | Reference observations and the four-layer sort |
 | `DIVERGENCE.md` | The scored divergence ledger from the earlier brief |
 
+## Brand
+
+```bash
+npm run brand      # renders scripts/brand.html in Chrome, writes public/brand
+```
+
+| File | What it is |
+|---|---|
+| `mark.svg`, `mark-on-light.svg` | The mark, vector, for anywhere a file is wanted |
+| `avatar-1024/512/400/200/96/48.png` | Square avatar, dark ground |
+| `twitter-banner-1500x500.png`, `@2x` | Header. Left column clears the profile-picture overlay |
+| `wordmark.png`, `wordmark-on-dark.png` | 1200×360, transparent and on ground |
+| `icon-512.png` | Favicon source |
+
+Three bars and a wall: each bar a grave filled to what comes out of it, the wall the reserve, and
+the gap widening because every extra unit of supply recovers less than the last. Drawn in markup
+at every size, so it cannot drift between the 22px header and the 1500px banner.
+
 ## Stack
 
 Next.js 15 App Router, TypeScript strict, Tailwind v4, Vercel. Archivo and IBM Plex Mono, both
-SIL OFL. No images anywhere in the project — every graphic is drawn in markup.
+SIL OFL. The app ships no image files — every graphic on every page is drawn in markup. The only
+rasters in the repository are the exported brand assets above, which exist because Twitter will
+not take an SVG.

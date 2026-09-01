@@ -45,10 +45,8 @@ export const short = (a: string, head = 6, tail = 4) =>
  * between the homepage, the docs and the footer.
  */
 export const PHASE_0_SENTENCE =
-  "Nothing is deployed. There is no contract, no GRAVE token and no exhumation. The scan on this site is real and dated; everything about depositing is described, not offered.";
+  "Nothing is deployed. There is no contract, no GRAVE token and no exhumation. The scan behind this page is real and dated; everything about depositing is described, not offered.";
 
 export const NOT_LOSSES_SENTENCE =
   "The Graveyard extracts a fraction of the quote asset stranded in a dead pool. That is not the same thing as returning what a position cost, and this site will never describe it that way.";
 
-export const JURISDICTION_SENTENCE =
-  "If a grave's token is a Robinhood Stock Token, it is a tokenised debt security issued by Robinhood Assets (Jersey) Limited: economic exposure to a share price, with no ownership and no votes. Those are not offered in the United States, Canada or the United Kingdom, and there is no workaround.";
