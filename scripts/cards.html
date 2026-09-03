@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Graveyard — post cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /*
+   * Five 1600x900 cards, one per launch post.
+   *
+   * Every figure on these is from src/data/scan.json or RECOVERY.md. Nothing
+   * here is rounded up, illustrative, or a placeholder — a card that carries a
+   * decorated number is worse than no card, because the whole argument of this
+   * project is that its numbers are checkable.
+   *
+   * Same tokens as the site. If the palette moves there, it moves here by hand,
+   * and that is the one place the brand can drift.
+   */
+  :root {
+    --bg: #0b0d10;
+    --s1: #131619;
+    --line: #2a3036;
+    --line-strong: #3a424a;
+    --ink: rgba(255,255,255,0.92);
+    --ink-2: rgba(255,255,255,0.64);
+    --ink-3: rgba(255,255,255,0.5);
+    --accent: #f2833f;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; border-radius:0; }
+  html, body { background:#202020; }
+  body { display:flex; flex-direction:column; gap:32px; padding:32px; font-family:Archivo, system-ui, sans-serif; }
+  .card {
+    width:1600px; height:900px; background:var(--bg); position:relative;
+    padding:96px 104px; display:flex; flex-direction:column;
+  }
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-weight:500;
+    font-size:22px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent);
+  }
+  .figure {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-weight:500;
+    font-variant-numeric:tabular-nums; color:var(--ink); line-height:0.94;
+    letter-spacing:-0.02em;
+  }
+  .label { font-size:30px; line-height:1.35; color:var(--ink-2); max-width:34ch; }
+  .note { font-size:22px; line-height:1.5; color:var(--ink-3); max-width:60ch; }
+  .foot {
+    position:absolute; left:104px; right:104px; bottom:66px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .lockup { display:flex; align-items:center; gap:16px; }
+  .lockup svg { width:38px; height:38px; }
+  .lockup span { font-size:26px; font-weight:600; letter-spacing:-0.02em; color:var(--ink); }
+  .url {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:22px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3);
+  }
+  .rule { height:1px; background:var(--line); }
+  .bar { display:flex; height:52px; border:1px solid var(--line-strong); }
+  .bar .fill { background:var(--accent); }
+  .bar .gap {
+    flex:1;
+    background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.10) 0 1px, transparent 1px 8px);
+  }
+  .bar .stop { width:5px; background:var(--ink); }
+  .mono { font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+
+<template id="mark">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="11" width="39" height="10" fill="#f2833f" />
+    <rect x="7" y="27" width="28" height="10" fill="#f2833f" />
+    <rect x="7" y="43" width="17" height="10" fill="#f2833f" />
+    <rect x="49.5" y="5" width="3.5" height="54" fill="rgba(255,255,255,0.92)" />
+  </svg>
+</template>
+
+<!-- 1 — the census -->
+<div class="card" id="c1">
+  <p class="eyebrow">the census</p>
+  <p class="figure" style="font-size:250px; margin-top:64px;">542,707</p>
+  <p class="label" style="margin-top:48px; max-width:44ch;">
+    Uniswap V4 pools have been created on this chain. We read every one of them.
+  </p>
+  <p class="note" style="margin-top:28px;">
+    Not a sample, not an index provider's list — every <span class="mono">Initialize</span> event
+    on the singleton from block 0 to 51,185,460.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 2 — the overstatement -->
+<div class="card" id="c2">
+  <p class="eyebrow">one pool, two methods</p>
+  <div style="margin-top:56px; display:flex; align-items:flex-end; gap:88px;">
+    <div>
+      <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3);">the easy way</p>
+      <p class="figure" style="font-size:82px; margin-top:20px; color:var(--ink-3);">$650,763,254,629</p>
+    </div>
+    <div>
+      <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">what it holds</p>
+      <p class="figure" style="font-size:132px; margin-top:14px; color:var(--accent);">$0.11</p>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:56px;"></div>
+  <p class="label" style="margin-top:44px; max-width:52ch;">
+    Reading active liquidity overstated this pool by 5.8&nbsp;×&nbsp;10<sup style="font-size:0.55em">12</sup>.
+  </p>
+  <p class="note" style="margin-top:24px;">
+    It assumes the liquidity spans the whole curve. Most of it doesn't. If you have seen a
+    &ldquo;value locked in dead pools&rdquo; figure for this chain, it is almost certainly the
+    left-hand column.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 3 — the asymptote -->
+<div class="card" id="c3">
+  <p class="eyebrow">why you never get it all</p>
+  <p class="figure" style="font-size:56px; margin-top:52px; color:var(--ink); letter-spacing:0;">
+    out(&Delta;) = R<sub style="font-size:0.6em">q</sub> &middot; &Delta;(1&minus;f) / (R<sub style="font-size:0.6em">t</sub> + &Delta;(1&minus;f))
+  </p>
+  <div class="bar" style="margin-top:64px;">
+    <div class="fill" style="width:78%"></div><div class="gap"></div><div class="stop"></div>
+  </div>
+  <div style="display:flex; justify-content:space-between; margin-top:20px;">
+    <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">what comes out</p>
+    <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3);">what never does</p>
+  </div>
+  <p class="label" style="margin-top:52px; max-width:50ch;">
+    It approaches the reserve. It reaches it at no finite amount of supply.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 4 — tradeability -->
+<div class="card" id="c4">
+  <p class="eyebrow">can they still be sold into?</p>
+  <p class="figure" style="font-size:230px; margin-top:56px;">142<span style="color:var(--ink-3)"> / 144</span></p>
+  <p class="label" style="margin-top:44px; max-width:46ch;">
+    dead pools have a completed sell somewhere in their own history.
+  </p>
+  <p class="note" style="margin-top:26px;">
+    Two have never traded at all. None has ever traded without a sell going through. That is the
+    strongest evidence available that another one would.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 5 — the honest one -->
+<div class="card" id="c5">
+  <p class="eyebrow">two numbers we could have led with</p>
+  <div style="margin-top:60px; display:flex; align-items:flex-start; gap:96px;">
+    <div>
+      <p class="figure" style="font-size:112px; color:var(--ink-3);">$248,000</p>
+      <p class="note" style="margin-top:22px; max-width:26ch;">
+        chain-wide, extrapolated, across ~27,000 pools
+      </p>
+    </div>
+    <div>
+      <p class="figure" style="font-size:112px; color:var(--accent);">$996.23</p>
+      <p class="note" style="margin-top:22px; max-width:26ch; color:var(--ink-2);">
+        what we actually measured, in 108 graves
+      </p>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:64px;"></div>
+  <p class="label" style="margin-top:44px; max-width:56ch;">
+    The second one is on our front page, in the biggest type we have.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<script>
+  const tpl = document.getElementById("mark");
+  for (const slot of document.querySelectorAll(".slot")) slot.appendChild(tpl.content.cloneNode(true));
+</script>
+</body>
+</html>

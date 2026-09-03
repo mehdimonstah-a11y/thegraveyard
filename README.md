@@ -84,6 +84,7 @@ npm run brand      # renders scripts/brand.html in Chrome, writes public/brand
 | `twitter-banner-1500x500.png`, `@2x` | Header. Left column clears the profile-picture overlay |
 | `wordmark.png`, `wordmark-on-dark.png` | 1200×360, transparent and on ground |
 | `icon-512.png` | Favicon source |
+| `posts/*.png` | Five 1600×900 launch cards, shot at 2× — `npm run cards` |
 
 Three bars and a wall: each bar a grave filled to what comes out of it, the wall the reserve, and
 the gap widening because every extra unit of supply recovers less than the last. Drawn in markup
