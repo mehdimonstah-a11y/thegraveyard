@@ -119,7 +119,7 @@ hit will land in the wrong place until it is moved here too.
   stream that exists and is silent fails identically to one that is missing
 - true peak ≤ −1.0 dBTP
 
-All three formats currently pass at mean −19.6 dB, peak −1.5 dB.
+All three formats currently pass at mean −19.0 dB, peak −6.4 dBTP.
 
 ## Toolchain
 
