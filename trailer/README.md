@@ -63,13 +63,47 @@ the thumbnail. Frame 230 is the mark at rest with the full lockup already on scr
 
 ## The score
 
-One sustained bed, six taps as the field fills, one hit when the wall lands, two settles across
-the collapse, and three taps under the type. Then the part it exists for: during the reach, the
-taps come at intervals that stretch on the same curve the picture is drawing. The audio slows
-toward a limit it does not reach, and stops because the film stops rather than because it
-resolved.
+A short piece in A minor. An FM electric piano carries it, a quiet pad sits under it, and a
+convolution reverb built from decaying noise puts it in a room. Chords land on the picture's
+cuts rather than on a metronome, with voice-leading that moves one or two voices at a time:
+`A3 C4 E4 → A3 C4 F4 → G3 C4 E4 → G3 B3 D4 → G3 C4 E4`.
 
-Deterministic — a fixed noise seed, so the same command produces the same waveform byte for byte.
+Under the reach the melody descends home, and the notes are placed at **equal distances along
+the bar's travel** with the times solved for — so the rhythm is whatever the bar's own curve
+makes it. The bar covers ground fast and then slows, so the notes start close and spread out.
+The picture performs the ritardando; the score doesn't write one over the top of it.
+
+Deterministic — fixed seeds, so the same command produces the same waveform byte for byte.
+
+### Run the analyser after any change
+
+```bash
+node analyse-audio.mjs out/announce.wav
+```
+
+**"Sounds fine to me" is how the first two versions shipped.** The second one measured:
+
+```
+sub  40-120   66.3%      <- almost all of the energy
+mid  500-2k    8.5%      <- where music lives
+air  6k-16k    0.0%
+tail resonances: 132Hz, 588Hz
+```
+
+A boom with something faint over it, and four Schroeder combs ringing on two notes. Both were
+mix problems rather than composition problems. The current file measures 15 / 28 / 51 / 6, the
+reverb is a convolution with no modes to ring, and the two frequencies still flagged in the tail
+are C3 and D5 — real notes, still decaying when the picture cuts.
+
+Two bugs the analyser found that a listen would have taken longer to:
+
+- `HZ.F5` was never in the note table, so the wall's second bell was `NaN` from 2.933 s onward.
+  A NaN sample is **silent**, not loud, so the delivery gate's "not silence" check passed and
+  nothing said anything. Every note now goes through `note()`, which throws on a name that is
+  not there.
+- The reach was an accelerando, not a ritardando. Placing notes at equal steps in *time* along
+  `u/(1+u)` bunches them at the end — the opposite of the picture — and left a silent patch from
+  8.25 s to 8.50 s.
 
 **The beat grid is transcribed into `music-announce.mjs` by hand.** The two files are not wired
 together, and that is the one place this build can drift: move a cut in `announce.html` and the
