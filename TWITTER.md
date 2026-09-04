@@ -63,6 +63,11 @@ same wall — the longest by twelve pixels. The left column stops well above the
 because Twitter overlays the profile picture there, and nothing that has to be read sits in the
 outer 96px, because it crops the sides on narrow screens.
 
+**Launch cards.** `public/brand/posts/*.png`, ten of them, 1600×900 shot at 2×. Every figure on
+every card is from `src/data/scan.json` or `RECOVERY.md`. A card carrying a decorated number is
+worse than no card, because the whole argument here is that the numbers are checkable.
+Regenerate with `npm run cards`.
+
 **Announcement film.** `trailer/out/thegraveyard-waitlist-*.mp4`, 10 s, three crops, each
 re-laid rather than letterboxed. A field of graves fills in, a wall lands, every bar is revealed
 to stop short of it, the field collapses into the mark — and the last beat is the top bar

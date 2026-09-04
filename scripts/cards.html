@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   /*
-   * Five 1600x900 cards, one per launch post.
+   * Ten 1600x900 cards, one per launch post.
    *
    * Every figure on these is from src/data/scan.json or RECOVERY.md. Nothing
    * here is rounded up, illustrative, or a placeholder — a card that carries a
@@ -171,6 +171,113 @@
   <div class="rule" style="margin-top:64px;"></div>
   <p class="label" style="margin-top:44px; max-width:56ch;">
     The second one is on our front page, in the biggest type we have.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 6 — the mark, explained -->
+<div class="card" id="c6">
+  <p class="eyebrow">our logo is the maths</p>
+  <div style="margin-top:44px; display:flex; align-items:center; gap:96px;">
+    <svg viewBox="0 0 64 64" width="360" height="360" style="flex:0 0 auto">
+      <rect x="7" y="11" width="39" height="10" fill="#f2833f" />
+      <rect x="7" y="27" width="28" height="10" fill="#f2833f" />
+      <rect x="7" y="43" width="17" height="10" fill="#f2833f" />
+      <rect x="49.5" y="5" width="3.5" height="54" fill="rgba(255,255,255,0.92)" />
+    </svg>
+    <div style="display:flex; flex-direction:column; gap:30px;">
+      <div>
+        <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">the bars</p>
+        <p class="label" style="margin-top:10px; font-size:27px; max-width:30ch;">Each one a dead pool, filled to what actually comes out of it.</p>
+      </div>
+      <div>
+        <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink);">the wall</p>
+        <p class="label" style="margin-top:10px; font-size:27px; max-width:30ch;">The reserve. Nothing reaches it, at any size, ever.</p>
+      </div>
+      <div>
+        <p class="mono" style="font-size:22px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3);">the gap, widening</p>
+        <p class="label" style="margin-top:10px; font-size:27px; max-width:30ch;">Every extra unit of supply recovers less than the one before it.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 7 — the cut -->
+<div class="card" id="c7">
+  <p class="eyebrow">we turn away money</p>
+  <p class="label" style="margin-top:44px; font-size:44px; line-height:1.2; color:var(--ink); max-width:30ch;">
+    Past the point where your share becomes dust, your deposit is refused.
+  </p>
+  <div class="bar" style="margin-top:56px;">
+    <div class="fill" style="width:62%"></div><div class="gap"></div><div class="stop"></div>
+  </div>
+  <div style="margin-top:22px; display:flex; align-items:center; gap:24px;">
+    <p class="mono" style="font-size:24px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); border:2px solid var(--accent); padding:10px 20px;">
+      refused &middot; below dust
+    </p>
+    <p class="note" style="max-width:44ch;">Not accepted at a worse rate. Not queued for the next round. Returned.</p>
+  </div>
+  <p class="note" style="margin-top:36px; max-width:62ch;">
+    A fixed pot split among unlimited depositors moves value from the late to the early. Every
+    protocol that accepts unlimited deposits into a bounded recovery is doing that, whether or
+    not it says so.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 8 — the maths is in CI -->
+<div class="card" id="c8">
+  <p class="eyebrow">asserted, not claimed</p>
+  <p class="figure" style="font-size:210px; margin-top:44px;">11<span style="font-size:0.34em; color:var(--ink-2)">&nbsp;&nbsp;assertions</span></p>
+  <div style="margin-top:52px; border-top:1px solid var(--line);">
+    <p class="label" style="padding-top:26px; font-size:27px; max-width:70ch;">
+      The recovery is asymptotic. Marginal recovery falls. One sale and twenty slices return the
+      same amount &mdash; to within <span class="mono" style="color:var(--accent)">0.1%</span>.
+    </p>
+  </div>
+  <p class="note" style="margin-top:32px; max-width:64ch;">
+    That last one is why there is no TWAP here. On a pool with no other traders, "smart execution"
+    is a moving graphic that costs depositors gas. It is not an opinion, it is a line in the test
+    suite.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 9 — the correction -->
+<div class="card" id="c9">
+  <p class="eyebrow">we were wrong by 28%</p>
+  <div style="margin-top:52px; display:flex; align-items:baseline; gap:56px;">
+    <p class="figure" style="font-size:104px; color:var(--ink-3); text-decoration:line-through; text-decoration-thickness:5px;">391,411</p>
+    <p class="figure" style="font-size:128px; color:var(--accent);">505,055</p>
+  </div>
+  <div class="rule" style="margin-top:52px;"></div>
+  <p class="label" style="margin-top:40px; max-width:56ch;">
+    We had left WETH out of the quote set. It carries 108,946 pools on this chain &mdash; nearly
+    as many as USDG.
+  </p>
+  <p class="note" style="margin-top:26px; max-width:64ch;">
+    Caught by counting every currency across all 542,707 pools and asking each contract what it
+    was, rather than assuming. Corrected before a single figure was published.
+  </p>
+  <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
+</div>
+
+<!-- 10 — the empty archive -->
+<div class="card" id="c10">
+  <p class="eyebrow">the results page</p>
+  <div style="margin-top:56px; display:flex; gap:104px;">
+    <div><p class="figure" style="font-size:150px;">0</p><p class="note" style="margin-top:18px;">exhumations run</p></div>
+    <div><p class="figure" style="font-size:150px;">$0.00</p><p class="note" style="margin-top:18px;">recovered</p></div>
+    <div><p class="figure" style="font-size:150px;">$0.00</p><p class="note" style="margin-top:18px;">paid out</p></div>
+  </div>
+  <div class="rule" style="margin-top:60px;"></div>
+  <p class="label" style="margin-top:42px; max-width:58ch;">
+    It is live, it is empty, and it shipped that way on purpose.
+  </p>
+  <p class="note" style="margin-top:26px; max-width:64ch;">
+    Every round will get a row &mdash; including the ones that return less than the gas they cost.
+    A results page that appears after the first good result is worth nothing.
   </p>
   <div class="foot"><span class="lockup"><span class="slot"></span><span>The Graveyard</span></span><span class="url">thegraveyard.xyz</span></div>
 </div>
