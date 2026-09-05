@@ -47,7 +47,6 @@ export interface ScanData {
   meta: {
     generatedAt: string;
     headBlock: number;
-    chainId: number;
     poolsInitialised: number;
     quoteSidePopulation: number;
     sampleSize: number;

@@ -80,8 +80,8 @@ the mark at its canonical proportions.
 ## PINNED THREAD — 8 TWEETS
 
 **1/**
-> {measuredCeilingUsd} of ETH and USDG is sitting in {measuredGraves} pools on Robinhood Chain
-> that nobody has traded in {deadDays} days.
+> {measuredCeilingUsd} of ETH and USDG is sitting in {measuredGraves} pools that nobody has
+> traded in {deadDays} days.
 >
 > We enumerated all {poolsInitialised} pools ever created on the chain and read the reserves out
 > of contract storage. Method and dataset: thegraveyard.xyz/scan

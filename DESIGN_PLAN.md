@@ -138,7 +138,7 @@ table. That margin is the site's silhouette and its argument.
 | THE GRAVEYARD                      the scan  an exhumation  the archive   |
 +--------------------------------------------------------------------------+
 |                                                                          |
-|  ON ROBINHOOD CHAIN, BLOCK 51,182,737, READ 2 MIN AGO                     |
+|  BLOCK 51,182,737, READ 2 MIN AGO                                         |
 |                                                                          |
 |  $ 1 2 4 , 8 8 1 . 4 0                                                    |
 |  is sitting in 3,417 pools that nobody has traded in 30 days.             |

@@ -11,10 +11,14 @@ transaction, and splits what comes out.
 **Nothing is deployed.** There is no contract, no `GRAVE` token and no exhumation. What exists
 is the scan, and the scan is real.
 
-**The site is closed.** The waitlist is the only public surface. The scan, the dataset, the docs
-and the archive all still build and are bounced to the front door by `src/middleware.ts` — a
-route with no link is still a route anyone can type. Set `PUBLIC_SITE_OPEN=1` to open it; no code
-change, no redeploy of anything but the variable.
+**The site is open.** `/` is a one-screen front door; the scan, the docs and the archive are
+behind it. The waitlist and the middleware gate are gone.
+
+**No boilerplate.** The chain's name, its id, the explorer's vendor and an affiliation
+disclaimer appear nowhere a visitor reads — none of it is something anyone can act on, and all of
+it makes a page look like a template. Explorer links stay, because a figure you cannot go and
+check is a claim; they route through `/e/<kind>/<value>` so the vendor is not in the markup
+either. `scripts/grep-test.mjs` fails the build if any of it comes back.
 
 ---
 

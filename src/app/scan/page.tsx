@@ -7,7 +7,7 @@ import { addressUrl, blockUrl, POOL_MANAGER } from "@/lib/chain";
 export const metadata: Metadata = {
   title: "The dataset",
   description:
-    "Every dead pool The Graveyard has measured on Robinhood Chain, with the method, the sample, and the intervals.",
+    "Every dead pool The Graveyard has measured, with the method, the sample, and the intervals.",
 };
 
 const { meta, totals, bands, tradeability, graves } = scan;
@@ -30,7 +30,7 @@ export default function ScanPage() {
             {num(meta.poolsInitialised)} pools, and what is left in the dead ones.
           </h1>
           <p className="mt-7 max-w-[68ch] text-[16px] leading-6 text-ink-2 md:text-[18px]">
-            Taken at block {num(meta.headBlock)} on chain {meta.chainId}. A pool is a grave when it
+            Taken at block {num(meta.headBlock)}. A pool is a grave when it
             has had no swap in {meta.deadDays} days, measured in blocks at this chain&rsquo;s own
             rate of {meta.secPerBlock}s per block. Change that number and the answer changes; the
             per-grave idle days are in the table so you can.
@@ -159,7 +159,7 @@ export default function ScanPage() {
             <p>
               Quote assets were found by counting currencies across the whole census and asking each
               contract what it is. Four qualify: native ETH, WETH, flETH and USDG. ETH and USDG are
-              priced from this chain&rsquo;s own Chainlink feeds — ${meta.prices.eth.toFixed(2)} and $
+              priced from the on-chain Chainlink feeds — ${meta.prices.eth.toFixed(2)} and $
               {meta.prices.usdg.toFixed(6)} at the time of the scan. WETH and flETH are priced off the
               ETH feed, which is an assumption about their redemption and is recorded as one.
             </p>

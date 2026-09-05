@@ -32,7 +32,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 const description =
-  "Dead pools still hold money. The Graveyard measures how much, aggregates the supply nobody can use alone, sells it once, and splits what comes out.";
+  "Dead pools still hold money. The Graveyard reads every liquidity pool ever created, measures exactly what is left in the dead ones, and gets it out.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

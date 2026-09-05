@@ -98,8 +98,7 @@ export function ScanTable({ graves, pageSize = 24 }: { graves: Grave[]; pageSize
       <div className="scroll-x mt-4 border border-line bg-surface-1">
         <table className="w-full min-w-[720px] border-collapse text-left">
           <caption className="sr-only">
-            Dead pools on Robinhood Chain, sorted by {sort}. Every grave is identified by contract
-            address.
+            Dead pools, sorted by {sort}. Every grave is identified by contract address.
           </caption>
           <thead>
             <tr className="border-b border-line">

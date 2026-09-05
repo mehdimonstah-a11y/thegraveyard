@@ -212,3 +212,40 @@ It is drawn in markup at every size it appears, from the 22px header lockup to t
 and the 1500px banner, so the geometry cannot drift between them. `scripts/brand.mjs` renders the
 sheet in real Chrome — Archivo is a webfont and neither librsvg nor sharp will load one — and
 writes the PNGs and the standalone SVGs. There is still no image file anywhere in the app itself.
+
+### D16 — The site is open, and the front door is one screen
+
+**Call:** the waitlist and the middleware gate are removed. `/` is a landing page — mark, claim,
+one sub-line, two buttons, three figures, and a footer that is the whole nav. The long marketing
+page is gone; its argument moved into `/docs`, which is now the complete mechanism read.
+
+**Why one screen:** the door's only job is to get someone to `/scan`, which is the product. A
+long scroll in front of a working dataset is a tax on the people most likely to be convinced by
+it, and the three figures on the door — pools read, graves measured, recoverable from them — do
+more than a thousand words of positioning.
+
+**What moved rather than died:** why the money is stuck, what we refuse, the ugly part, and the
+FAQ are all in `/docs` verbatim. Nothing was cut for length.
+
+### D17 — No chain naming, no affiliation boilerplate, anywhere a reader looks
+
+**Call:** the chain's name, its id, the explorer's vendor name and any "not affiliated with"
+disclaimer are removed from every reader-facing surface, and seven patterns in the CI grep gate
+keep them out.
+
+**Why:** none of it is something a visitor can act on. It is the furniture that makes a product
+page look like a template, and this project's whole argument is that its figures are worth
+reading — furniture around them works against that.
+
+**What was kept, and why:** explorer links. A figure you cannot go and check is a claim rather
+than a measurement, so every address, block and transaction still links out. They route through
+`/e/<kind>/<value>` — one redirect on our own domain — so the vendor is not in a few hundred
+`href` attributes either. The route has an allow-list on the path kind, because an open redirect
+on a site that says "go and verify this" would be a genuinely bad joke.
+
+**Also kept:** the sentence saying nothing is deployed. It is not boilerplate, it is true, and
+removing it while releasing the site would imply the opposite. It appears once, on the door.
+
+**Where the chain is still named:** `RECOVERY.md`, `THESIS.md`, `DECISIONS.md`, the scan scripts,
+and `src/lib/chain.ts` — the places where it is load-bearing rather than decorative. Those files
+are the grep gate's only exemptions.

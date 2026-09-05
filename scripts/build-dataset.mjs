@@ -75,7 +75,6 @@ const out = {
   meta: {
     generatedAt: new Date(cursor.headTs ? cursor.headTs * 1000 : Date.now()).toISOString(),
     headBlock: head,
-    chainId: 4663,
     poolsInitialised: cursor.count,
     quoteSidePopulation: exact.population,
     sampleSize: exact.sampled,

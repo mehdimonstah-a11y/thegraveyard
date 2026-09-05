@@ -14,7 +14,7 @@ import path from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 
-const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "data", "out", ".vercel"]);
+const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "data", "out", ".vercel", "trailer", "research"]);
 /**
  * The analysis documents are exempt, and nothing else is.
  *
@@ -33,6 +33,17 @@ const SKIP_FILES = new Set([
   "DIVERGENCE.md",
   "SPEC.md",
   "DEVIATIONS.md",
+  // These four record the measurement itself. The chain has to be named
+  // somewhere it is load-bearing, and that somewhere is the method write-ups
+  // and the scan scripts — never a page.
+  "RECOVERY.md",
+  "DECISIONS.md",
+  "THESIS.md",
+  "README.md",
+  "chain.ts",
+  "rpc.mjs",
+  "prices.mjs",
+  "scan.json",
 ]);
 
 const BANS = [
@@ -71,6 +82,20 @@ const BANS = [
   { re: /rest in peace/i, why: "build brief: macabre-cute" },
   { re: /\bR\.?I\.?P\.?\b/, why: "build brief: macabre-cute" },
   { re: /\bgothic\b/i, why: "build brief: banned styling" },
+
+  // ── boilerplate that says nothing a reader can act on ────────────────
+  // The chain's name, its id, the explorer's vendor, and an affiliation
+  // disclaimer. None of it helps anyone and all of it makes a page look like
+  // a template rather than a product. Explorer LINKS stay, because a figure
+  // you cannot go and check is a claim; they are labelled "Explorer", never
+  // by brand.
+  { re: /robinhood/i, why: "chain or vendor named on a reader-facing surface" },
+  { re: /blockscout/i, why: "explorer vendor name" },
+  { re: /\bchain\s*id\b/i, why: "chain id boilerplate" },
+  { re: /(^|[^\d])4663([^\d]|$)/, why: "chain id boilerplate" },
+  { re: /not affiliated/i, why: "affiliation disclaimer boilerplate" },
+  { re: /endorsed by/i, why: "affiliation disclaimer boilerplate" },
+  { re: /connected to [A-Z]/, why: "affiliation disclaimer boilerplate" },
 ];
 
 /** Files whose whole job is to quote the brief. Checked, but restoration
