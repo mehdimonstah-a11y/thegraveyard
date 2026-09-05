@@ -25,6 +25,7 @@ const CARDS = [
   { id: "c8", file: "08-asserted-not-claimed.png" },
   { id: "c9", file: "09-the-correction.png" },
   { id: "c10", file: "10-the-empty-archive.png" },
+  { id: "c11", file: "11-out-now.png" },
 ];
 
 await fs.mkdir(OUT, { recursive: true });
